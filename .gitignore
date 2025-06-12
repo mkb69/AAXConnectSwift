@@ -1,0 +1,10 @@
+.build/
+*.aaxc
+*.m4b
+Examples/main.py
+test/*.json
+BUG_FIXES_SUMMARY.md
+DEMO_RESULTS.md
+FINAL_VALIDATION.md
+URL_INPUT_GUIDE.md
+Tests/Bindings/
