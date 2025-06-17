@@ -120,7 +120,7 @@ public class AAXConnectClient {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
         components?.queryItems = [
             URLQueryItem(name: "num_results", value: "1000"),
-            URLQueryItem(name: "response_groups", value: "product_desc,product_attrs,contributors,series,product_details,customer_rights,product_extended_attrs,sku,categories,is_playable,is_visible"),
+            URLQueryItem(name: "response_groups", value: "product_desc,product_attrs,contributors,series,product_details,customer_rights,product_extended_attrs,sku,categories,is_playable,is_visible,media"),
             URLQueryItem(name: "sort_by", value: "Author")
         ]
         
@@ -224,7 +224,13 @@ public class AAXConnectClient {
             let imageUrl = item["image_url"] as? String
             let sampleUrl = item["sample_url"] as? String
             let pdfUrl = item["pdf_url"] as? String
-            let productImages = item["product_images"] as? [String: String]
+            // Extract just the "500" URL from product_images dictionary
+            let productImages: String? = {
+                if let productImagesDict = item["product_images"] as? [String: String] {
+                    return productImagesDict["500"]
+                }
+                return nil
+            }()
 
             let isbn = item["isbn"] as? String
 

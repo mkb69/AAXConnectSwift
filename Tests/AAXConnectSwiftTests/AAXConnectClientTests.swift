@@ -336,7 +336,21 @@ struct AAXConnectClientAuthenticatedAPITests {
             #expect(firstBook.title.count > 0, "First book should have a title.")
             #expect(firstBook.skuLite.count > 0, "First book should have an SKU.")
             print("First book: \(firstBook.title) (SKU: \(firstBook.skuLite))")
+            
+            // Verify cover art is populated
+            #expect(firstBook.productImages != nil, "First book should have a product image URL")
+            if let imageURL = firstBook.productImages {
+                #expect(imageURL.contains("https://"), "Product image URL should be a valid HTTPS URL")
+                #expect(imageURL.contains(".jpg") || imageURL.contains(".png"), "Product image URL should be an image file")
+                print("First book cover art: \(imageURL)")
+            }
         }
+        
+        // Verify that most books have cover art
+        let booksWithImages = library.books.filter { $0.productImages != nil }
+        let imagePercentage = Double(booksWithImages.count) / Double(library.books.count) * 100
+        print("\(booksWithImages.count) out of \(library.books.count) books have cover art (\(String(format: "%.1f", imagePercentage))%)")
+        #expect(booksWithImages.count > 0, "At least some books should have cover art")
 
         // Save the library to JSON using the new client method
         let libraryData = try client.exportLibraryToJSON(library: library)

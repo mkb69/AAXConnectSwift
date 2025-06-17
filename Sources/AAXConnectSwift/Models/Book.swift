@@ -50,7 +50,7 @@ public struct Book: Codable, Sendable {
     public let imageUrl: String? // Cover art
     public let sampleUrl: String?
     public let pdfUrl: String?
-    public let productImages: [String: String]? // Various image sizes
+    public let productImages: String? // Product image URL (500px version)
     public let isbn: String? // ISBN-13
 
     // Fields from extended response groups
@@ -132,7 +132,7 @@ public struct Book: Codable, Sendable {
         imageUrl: String? = nil,
         sampleUrl: String? = nil,
         pdfUrl: String? = nil,
-        productImages: [String: String]? = nil,
+        productImages: String? = nil,
         isbn: String? = nil,
         customerRights: CustomerRights? = nil,
         categories: Data? = nil,
