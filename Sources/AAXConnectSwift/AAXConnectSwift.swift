@@ -816,7 +816,7 @@ internal struct AuthSession {
 extension AAXConnectClient {
     
     /// Get ASIN for a given SKU by searching the library
-    private func getASINForSKU(skuLite: String) async throws -> String? {
+    public func getASINForSKU(skuLite: String) async throws -> String? {
         let library = try await loadLibrary()
         return library.books.first { $0.skuLite.lowercased() == skuLite.lowercased() }?.asin
     }
@@ -890,7 +890,7 @@ extension AAXConnectClient {
     }
     
     /// Get license response for a book using ASIN
-    private func getLicenseResponse(asin: String, quality: String) async throws -> [String: Any] {
+    public func getLicenseResponse(asin: String, quality: String) async throws -> [String: Any] {
         let urlString = "https://api.audible.\(locale.domain)/1.0/content/\(asin)/licenserequest"
         guard let url = URL(string: urlString) else {
             throw AAXConnectError.invalidURL
